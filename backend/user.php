@@ -42,7 +42,7 @@ include 'controls/fetchUser.php';
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+                    <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
                         <tr>
                             <td class="text-center"><?= htmlspecialchars($row['id']); ?></td>
                             <td><?= htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']); ?></td>
@@ -54,9 +54,25 @@ include 'controls/fetchUser.php';
                                 <a href="edituser.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
-                                <button class="btn btn-sm btn-danger">
+                                <button class="btn btn-sm btn-danger" onclick="confirmDelete(<?= $row['id'] ?>)">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
+                                <script>
+                                    function confirmDelete(id) {
+                                        Swal.fire({
+                                            title: 'คุณแน่ใจหรือไม่?',
+                                            text: "คุณต้องการลบผู้ใช้งานนี้หรือไม่?",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonText: 'ใช่, ลบเลย!',
+                                            cancelButtonText: 'ยกเลิก'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                window.location.href = `controls/deleteUser.php?id=${id}`;
+                                            }
+                                        });
+                                    }
+                                </script>
                             </td>
                         </tr>
                     <?php } ?>
@@ -64,6 +80,28 @@ include 'controls/fetchUser.php';
             </table>
         </main>
     </div>
+<?php if (isset($_SESSION['success'])) : ?>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'สำเร็จ',
+            text: '<?= $_SESSION['success']; ?>',
+            confirmButtonText: 'ตกลง'
+        });
+    </script>
+<?php unset($_SESSION['success']);
+endif; ?>
+<?php if (isset($_SESSION['error'])) : ?>
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'ผิดพลาด',
+            text: '<?= $_SESSION['error']; ?>',
+            confirmButtonText: 'ตกลง'
+        });
+    </script>
+<?php unset($_SESSION['error']);
+endif; ?>
 </body>
 
 </html>

@@ -14,7 +14,7 @@
         $result = $stmt->execute([$first_name, $last_name, $address, $phone, $email, $id]);
 
         if ($result) {
-            $_SESSION['message'] = "User updated successfully!";
+            $_SESSION['success'] = "User updated successfully!";
             header("Location: ../user.php");
         } else {
             $_SESSION['error'] = "Failed to update user.";
