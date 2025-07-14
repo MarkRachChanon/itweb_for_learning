@@ -50,6 +50,9 @@ include 'controls/idUser.php';
                     <label for="">Email</label>
                     <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($user['email']); ?>">
                 </div>
+                <button type="submit" class="btn btn-primary">บันทึกการแก้ไข</button>
+                <button type="reset" class="btn btn-danger">รีเซ็ต</button>
+                <a href="user.php" class="btn btn-secondary">ย้อนกลับ</a>
             </form>
         </main>
     </div>

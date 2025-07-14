@@ -37,6 +37,7 @@ include 'controls/fetchUser.php';
                         <th>E-Mail</th>
                         <th>Tel Number</th>
                         <th>Created Date</th>
+                        <th>Role</th>
                         <th>Manage</th>
                     </tr>
                 </thead>
@@ -48,6 +49,7 @@ include 'controls/fetchUser.php';
                             <td><?= htmlspecialchars($row['email']); ?></td>
                             <td class="text-center"><?= htmlspecialchars($row['phone']); ?></td>
                             <td class="text-center"><?= htmlspecialchars($row['created_at']); ?></td>
+                            <td class="text-center"><?= htmlspecialchars($row['role']); ?></td>
                             <td class="text-center">
                                 <a href="edituser.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">
                                     <i class="bi bi-pencil-square"></i>
