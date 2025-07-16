@@ -5,7 +5,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit;
 }
 
-include 'controls/fetchUser.php';
+include 'controls/fetchProduct.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,17 +28,17 @@ include 'controls/fetchUser.php';
         <?php include '../backend/components/header.php'; ?>
 
         <main class="p-4 flex-grow-1">
-            <h2>จัดการผู้ใช้งาน</h2>
+            <h2>จัดการสินค้า</h2>
+            <a href="addproduct.php" class="btn btn-primary mb-3">เพิ่มสินค้า</a>
             <table class="table table-bordered">
                 <thead class="table-dark text-center">
                     <tr>
                         <th>ID</th>
                         <th>Images</th>
                         <th>Name</th>
-                        <th>E-Mail</th>
-                        <th>Tel Number</th>
+                        <th>Description</th>
+                        <th>Price</th>
                         <th>Created Date</th>
-                        <th>Role</th>
                         <th>Manage</th>
                     </tr>
                 </thead>
@@ -46,14 +46,15 @@ include 'controls/fetchUser.php';
                     <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
                         <tr>
                             <td class="text-center"><?= htmlspecialchars($row['id']); ?></td>
-                            <td><img src="../assets/imgs/<?= htmlspecialchars($row['profile_image']); ?>" alt="" style="width: 100px;"></td>
-                            <td><?= htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']); ?></td>
-                            <td><?= htmlspecialchars($row['email']); ?></td>
-                            <td class="text-center"><?= htmlspecialchars($row['phone']); ?></td>
+                            <td>
+                                <img src="../assets/imgs/<?= htmlspecialchars($row['image']); ?>" alt="" style="width: 100px;">
+                            </td>
+                            <td><?= htmlspecialchars($row['name']); ?></td>
+                            <td><?= htmlspecialchars($row['description']); ?></td>
+                            <td class="text-center"><?= htmlspecialchars($row['price']); ?></td>
                             <td class="text-center"><?= htmlspecialchars($row['created_at']); ?></td>
-                            <td class="text-center"><?= htmlspecialchars($row['role']); ?></td>
                             <td class="text-center">
-                                <a href="edituser.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">
+                                <a href="editproduct.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
                                 <button class="btn btn-sm btn-danger" onclick="confirmDelete(<?= $row['id'] ?>)">
@@ -63,14 +64,14 @@ include 'controls/fetchUser.php';
                                     function confirmDelete(id) {
                                         Swal.fire({
                                             title: 'คุณแน่ใจหรือไม่?',
-                                            text: "คุณต้องการลบผู้ใช้งานนี้หรือไม่?",
+                                            text: "คุณต้องการลบสินค้านี้หรือไม่?",
                                             icon: 'warning',
                                             showCancelButton: true,
                                             confirmButtonText: 'ใช่, ลบเลย!',
                                             cancelButtonText: 'ยกเลิก'
                                         }).then((result) => {
                                             if (result.isConfirmed) {
-                                                window.location.href = `controls/deleteUser.php?id=${id}`;
+                                                window.location.href = `controls/deleteProduct.php?id=${productId}`;
                                             }
                                         });
                                     }
@@ -82,28 +83,28 @@ include 'controls/fetchUser.php';
             </table>
         </main>
     </div>
-<?php if (isset($_SESSION['success'])) : ?>
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'สำเร็จ',
-            text: '<?= $_SESSION['success']; ?>',
-            confirmButtonText: 'ตกลง'
-        });
-    </script>
-<?php unset($_SESSION['success']);
-endif; ?>
-<?php if (isset($_SESSION['error'])) : ?>
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'ผิดพลาด',
-            text: '<?= $_SESSION['error']; ?>',
-            confirmButtonText: 'ตกลง'
-        });
-    </script>
-<?php unset($_SESSION['error']);
-endif; ?>
+    <?php if (isset($_SESSION['success'])) : ?>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'สำเร็จ',
+                text: '<?= $_SESSION['success']; ?>',
+                confirmButtonText: 'ตกลง'
+            });
+        </script>
+    <?php unset($_SESSION['success']);
+    endif; ?>
+    <?php if (isset($_SESSION['error'])) : ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'ผิดพลาด',
+                text: '<?= $_SESSION['error']; ?>',
+                confirmButtonText: 'ตกลง'
+            });
+        </script>
+    <?php unset($_SESSION['error']);
+    endif; ?>
 </body>
 
 </html>
