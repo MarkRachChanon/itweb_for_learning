@@ -32,7 +32,8 @@ include 'controls/fetchUser.php';
             <table class="table table-bordered">
                 <thead class="table-dark text-center">
                     <tr>
-                        <th>ID</th>
+                        <th>No.</th>
+                        <!-- <th>ID</th> -->
                         <th>Images</th>
                         <th>Name</th>
                         <th>E-Mail</th>
@@ -43,9 +44,10 @@ include 'controls/fetchUser.php';
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+                    <?php $i = 1; while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
                         <tr>
-                            <td class="text-center"><?= htmlspecialchars($row['id']); ?></td>
+                            <td class="text-center"><?= $i++; ?></td>
+                            <!-- <td class="text-center"><?= htmlspecialchars($row['id']); ?></td> -->
                             <td><img src="../assets/imgs/<?= htmlspecialchars($row['profile_image']); ?>" alt="" style="width: 100px;"></td>
                             <td><?= htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']); ?></td>
                             <td><?= htmlspecialchars($row['email']); ?></td>

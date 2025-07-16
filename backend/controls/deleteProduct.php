@@ -1,22 +1,22 @@
 <?php
-    session_start();
-    include 'db.php';
+session_start();
+include 'db.php';
 
-    if (isset($_GET['id'])) {
-        $id = $_GET['id'];
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
 
-        // Prepare and execute the delete statement
-        $stmt = $pdo->prepare("DELETE FROM products WHERE id = ?");
-        $result = $stmt->execute([$id]);
+    // Prepare and execute the delete statement
+    $stmt = $pdo->prepare("DELETE FROM products WHERE id = ?");
+    $result = $stmt->execute([$id]);
 
-        if ($result) {
-            $_SESSION['success'] = "User deleted successfully!";
-            header("Location: ../user.php");
-        } else {
-            $_SESSION['error'] = "Failed to delete user.";
-            header("Location: ../user.php");
-        }
-
-        exit;
+    if ($result) {
+        $_SESSION['success'] = "Product deleted successfully!";
+        header("Location: ../product.php");
+    } else {
+        $_SESSION['error'] = "Failed to delete product.";
+        header("Location: ../product.php");
     }
+
+    exit;
+}
 ?>

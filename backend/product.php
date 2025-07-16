@@ -33,7 +33,8 @@ include 'controls/fetchProduct.php';
             <table class="table table-bordered">
                 <thead class="table-dark text-center">
                     <tr>
-                        <th>ID</th>
+                        <th>No.</th>
+                        <!-- <th>ID</th> -->
                         <th>Images</th>
                         <th>Name</th>
                         <th>Description</th>
@@ -43,9 +44,10 @@ include 'controls/fetchProduct.php';
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+                    <?php $i = 1; while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
                         <tr>
-                            <td class="text-center"><?= htmlspecialchars($row['id']); ?></td>
+                            <td class="text-center"><?= $i++; ?></td>
+                            <!-- <td class="text-center"><?= htmlspecialchars($row['id']); ?></td> -->
                             <td>
                                 <img src="../assets/imgs/<?= htmlspecialchars($row['image']); ?>" alt="" style="width: 100px;">
                             </td>
@@ -57,11 +59,11 @@ include 'controls/fetchProduct.php';
                                 <a href="editproduct.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
-                                <button class="btn btn-sm btn-danger" onclick="confirmDelete(<?= $row['id'] ?>)">
+                                <button class="btn btn-sm btn-danger" onclick="confirmDeleteP(<?= $row['id'] ?>)">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
                                 <script>
-                                    function confirmDelete(id) {
+                                    function confirmDeleteP(productId) {
                                         Swal.fire({
                                             title: 'คุณแน่ใจหรือไม่?',
                                             text: "คุณต้องการลบสินค้านี้หรือไม่?",
