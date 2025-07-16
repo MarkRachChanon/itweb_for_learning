@@ -26,9 +26,9 @@ include './controls/fetchUser.php';
                 <div class="container mt-5">
                     <div class="row">
                         <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
-                            <div class="col-md-4 mb-4">
+                            <div class="col-md-3 mb-4">
                                 <div class="card h-100">
-                                    <img src="./assets/imgs/<?= htmlspecialchars($row['profile_image']); ?>" class="card-img-top" style="object-fit:cover; height:200px;">
+                                    <img src="./assets/imgs/<?= htmlspecialchars($row['profile_image']); ?>" class="card-img-top" style="object-fit:contain; height:200px;">
                                     <div class="card-body">
                                         <h5 class="card-title"><?php echo htmlspecialchars($row['first_name'] . " " . htmlspecialchars($row['last_name'])); ?></h5>
                                         <p class="card-text"><strong>อีเมล์:</strong><?php echo htmlspecialchars($row['email']); ?></p>

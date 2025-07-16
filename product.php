@@ -26,7 +26,7 @@ include './controls/fetchProduct.php';
                 <div class="container mt-5">
                     <div class="row">
                         <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
-                            <div class="col-md-4 mb-4">
+                            <div class="col-md-3 mb-4">
                                 <div class="card h-100">
                                     <img src="./assets/imgs/<?= htmlspecialchars($row['image']); ?>" class="card-img-top" alt="<?= htmlspecialchars($row['name']); ?>" style="object-fit:cover; height:200px;">
                                     <div class="card-body">
