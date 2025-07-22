@@ -35,7 +35,7 @@ include './controls/fetchProduct.php';
                                         <p class="card-text"><strong>ราคา:</strong> <?= htmlspecialchars($row['price']); ?> บาท</p>
                                         <p class="card-text"><strong>เพิ่มเมื่อ:</strong> <?= htmlspecialchars($row['created_at']); ?></p>
                                         <div class="text-center">
-                                            <button class="btn btn-primary add-to-cart"
+                                            <button class="btn btn-primary" id="add-to-cart"
                                                 data-id="<?= htmlspecialchars($row['id']); ?>"
                                                 data-name="<?= htmlspecialchars($row['name']); ?>"
                                                 data-price="<?= htmlspecialchars($row['price']); ?>"
@@ -62,7 +62,7 @@ include './controls/fetchProduct.php';
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        const addToCartButtons = document.querySelectorAll('#add-to-cart');
 
         addToCartButtons.forEach(button => {
             button.addEventListener('click', function() {
@@ -71,31 +71,37 @@ include './controls/fetchProduct.php';
                 const productPrice = this.getAttribute('data-price');
                 const productImage = this.getAttribute('data-image');
 
-                $.ajax({
-                    url: './controls/addToCart.php',
-                    type: 'POST',
-                    data: {
-                        id: productId,
-                        name: productName,
-                        price: productPrice,
-                        image: productImage
+                fetch('./controls/addToCart.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    success: function(response) {
-                        Swal.fire({
-                            title: 'สำเร็จ',
-                            text: `${productName} ได้ถูกเพิ่มลงในตะกร้าแล้ว!`,
-                            icon: 'success',
-                            confirmButtonText: 'ตกลง'
-                        });
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.fire({
-                            title: 'เกิดข้อผิดพลาด',
-                            text: `${error} ไม่สามารถเพิ่มสินค้าได้ กรุณาลองใหม่อีกครั้ง`,
-                            icon: 'error',
-                            confirmButtonText: 'ตกลง'
-                        });
+                    body: new URLSearchParams({
+                        productId: productId,
+                        productName: productName,
+                        productPrice: productPrice,
+                        productImage: productImage
+                    })
+                }).then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    } else {
+                        throw new Error('Network response was not ok');
                     }
+                }).then(data => {
+                    Swal.fire({
+                        title: 'สำเร็จ',
+                        text: `${productName} ได้ถูกเพิ่มลงในตะกร้าแล้ว!`,
+                        icon: 'success',
+                        confirmButtonText: 'ตกลง'
+                    });
+                }).catch(error => {
+                    Swal.fire({
+                        title: 'เกิดข้อผิดพลาด',
+                        text: `${error.message} ไม่สามารถเพิ่มสินค้าได้ กรุณาลองใหม่อีกครั้ง`,
+                        icon: 'error',
+                        confirmButtonText: 'ตกลง'
+                    });
                 });
             });
         });
