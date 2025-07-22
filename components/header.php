@@ -24,6 +24,7 @@
                             <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin') : ?>
                             <li><a href="/itweb/backend/index.php" class="dropdown-item">ตั้งค่า</a></li>
                             <?php endif; ?>
+                            <li><a href="/itweb/cart.php" class="dropdown-item">ตะกร้าสินค้า</a></li>
                             <li><a href="#" class="dropdown-item">โปรไฟล์</a></li>
                             <li><a href="controls/signout.php" class="dropdown-item">ออกจากระบบ</a></li>
                         </ul>
