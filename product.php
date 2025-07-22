@@ -34,6 +34,15 @@ include './controls/fetchProduct.php';
                                         <p class="card-text"><?= htmlspecialchars($row['description']); ?></p>
                                         <p class="card-text"><strong>ราคา:</strong> <?= htmlspecialchars($row['price']); ?> บาท</p>
                                         <p class="card-text"><strong>เพิ่มเมื่อ:</strong> <?= htmlspecialchars($row['created_at']); ?></p>
+                                        <div class="text-center">
+                                            <button class="btn btn-primary add-to-cart"
+                                                data-id="<?= htmlspecialchars($row['id']); ?>"
+                                                data-name="<?= htmlspecialchars($row['name']); ?>"
+                                                data-price="<?= htmlspecialchars($row['price']); ?>"
+                                                data-image="<?= htmlspecialchars($row['image']); ?>">
+                                                เพิ่มสินค้า
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -50,3 +59,45 @@ include './controls/fetchProduct.php';
 </body>
 
 </html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.getAttribute('data-id');
+                const productName = this.getAttribute('data-name');
+                const productPrice = this.getAttribute('data-price');
+                const productImage = this.getAttribute('data-image');
+
+                $.ajax({
+                    url: './controls/addToCart.php',
+                    type: 'POST',
+                    data: {
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        image: productImage
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            title: 'สำเร็จ',
+                            text: `${productName} ได้ถูกเพิ่มลงในตะกร้าแล้ว!`,
+                            icon: 'success',
+                            confirmButtonText: 'ตกลง'
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+                            title: 'เกิดข้อผิดพลาด',
+                            text: `${error} ไม่สามารถเพิ่มสินค้าได้ กรุณาลองใหม่อีกครั้ง`,
+                            icon: 'error',
+                            confirmButtonText: 'ตกลง'
+                        });
+                    }
+                });
+            });
+        });
+    });
+</script>
