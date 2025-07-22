@@ -82,13 +82,9 @@ include './controls/fetchProduct.php';
                         productPrice: productPrice,
                         productImage: productImage
                     })
-                }).then(response => {
-                    if (response.ok) {
-                        return response.text();
-                    } else {
-                        throw new Error('Network response was not ok');
-                    }
-                }).then(data => {
+                })
+                .then(response => response.text())
+                .then(data => {
                     Swal.fire({
                         title: 'สำเร็จ',
                         text: `${productName} ได้ถูกเพิ่มลงในตะกร้าแล้ว!`,
