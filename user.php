@@ -16,10 +16,10 @@ include './controls/fetchUser.php';
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <?php include './components/header.php'; ?>
 
-    <section id="fecth_user" class="py-5">
+    <section id="fecth_user" class="py-5 flex-grow-1">
         <div class="container">
             <h2 class="mb-4">แสดงข้อมูลผู้ใช้งาน</h2>
             <?php if ($stmt->rowCount() > 0) : ?>

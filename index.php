@@ -20,7 +20,7 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <?php include './components/header.php'; ?>
 
     <!-- Hero Section -->

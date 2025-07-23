@@ -15,10 +15,10 @@ session_start();
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <?php include './components/header.php'; ?>
 
-    <section id="cart_product" class="py-5">
+    <section id="cart_product" class="flex-grow-1 py-5">
         <div class="container">
             <h2 class="mb-4">แสดงข้อมูลตะกร้าสินค้า</h2>
             <div class="container mt-5">

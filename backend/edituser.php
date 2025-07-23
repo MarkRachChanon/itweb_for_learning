@@ -22,8 +22,8 @@ include 'controls/idUser.php';
     <link rel="stylesheet" href="/itweb/assets/css/style.css">
 </head>
 
-<body>
-    <div class="d-flex">
+<body class="d-flex flex-column min-vh-100">
+    <div class="d-flex flex-grow-1">
         <?php include '../backend/components/header.php'; ?>
 
         <main class="p-4 flex-grow-1">
