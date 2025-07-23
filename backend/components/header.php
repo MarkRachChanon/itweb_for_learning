@@ -4,5 +4,6 @@
         <li class="nav-item"><a href="/itweb/backend/index.php" class="nav-link text-white">Dashboard</a></li>
         <li class="nav-item"><a href="/itweb/backend/user.php" class="nav-link text-white">จัดการผู้ใช้งาน</a></li>
         <li class="nav-item"><a href="/itweb/backend/product.php" class="nav-link text-white">จัดการสินค้า</a></li>
+        <li class="nav-item"><a href="/itweb/" class="nav-link text-white">ITWEB</a></li>
     </ul>
 </nav>
