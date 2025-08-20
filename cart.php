@@ -1,5 +1,5 @@
 <?php
-session_start();
+include './controls/fetchDelivery.php';
 //เพิ่มจำนวนสินค้าในตะกร้า
 if (isset($_POST['action']) && $_POST['action'] == 'increase' && isset($_POST['productId'])) {
     $productId = $_POST['productId'];
@@ -28,6 +28,13 @@ if (isset($_POST['action']) && $_POST['action'] == 'remove' && isset($_POST['pro
             unset($_SESSION['cart'][$key]);
             break;
         }
+    }
+}
+// คำนวณราคาทั้งหมด
+$totalPrice = 0;
+if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
+    foreach ($_SESSION['cart'] as $item) {
+        $totalPrice += $item['productPrice'] * $item['quantity'];
     }
 }
 ?>
@@ -63,6 +70,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'remove' && isset($_POST['pro
                                             <h5 class="mb-1"><?= htmlspecialchars($item['productName']); ?></h5>
                                             <p class="mb-1"><strong>Price:</strong> <?= htmlspecialchars($item['productPrice']); ?> บาท</p>
                                             <p class="mb-0"><strong>Quantity:</strong> <?= htmlspecialchars($item['quantity']); ?></p>
+                                            <p class="mb-1"><strong>Total Price:</strong> <?= htmlspecialchars($item['productPrice'] * $item['quantity']); ?></p>
                                         </div>
                                     </div>
                                     <div class="btn-group" role="group" aria-label="Basic example">
@@ -91,9 +99,22 @@ if (isset($_POST['action']) && $_POST['action'] == 'remove' && isset($_POST['pro
                                 </li>
                             <?php endforeach; ?>
                         </ul>
+
+                        <!-- แสดงราคาสุทธิ -->
+                        <div class="mt-4 text-right">
+                            <h4 style="color: darkred;"><strong>Total Price: <?= number_format($totalPrice, 2) ?></strong></h4>
+                        </div>
                     <?php else: ?>
                         <p class="text-center col-12">ไม่มีสินค้าในตระกล้า</p>
                     <?php endif; ?>
+                    <div class="mt-4 text-right">
+                        <h4><strong>Delivery Address:</strong></h4>
+                        <hr>
+                        <p><strong>Name: </strong><?= htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']); ?></p>
+                        <p><strong>Address: </strong> <?= htmlspecialchars($row['address']); ?></p>
+                        <p><strong>Tel: </strong> <?= htmlspecialchars($row['phone']); ?></p>
+                        <p><strong>Email: </strong> <?= htmlspecialchars($row['email']); ?></p>
+                    </div>
                 </div>
             </div>
         </div>
