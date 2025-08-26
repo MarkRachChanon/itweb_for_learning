@@ -9,9 +9,7 @@
         $pdo->setAttribute(
             PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION
         );
-        echo "<script>console.log('Connection Success');</script>";
     } catch (Exception $e) {
-        echo "<script>console.log('Error: " . $e->getMessage() . "');</script>";
         exit();
     }
 ?>
