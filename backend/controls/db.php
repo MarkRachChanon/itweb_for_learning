@@ -2,7 +2,7 @@
     $host = 'thsv25.hostatom.com';
     $dbname = 'ncitproj_g0';
     $username = 'ncitproj_g0';
-    $password = 'Al0cJnk%T?98osye';
+    $password = '43Ds*lNSav4mobi#';
 
     try {
         $pdo = new PDO("mysql:host=$host; dbname=$dbname; charset=utf8mb4", $username, $password);
